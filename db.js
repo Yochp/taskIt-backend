@@ -8,14 +8,13 @@ db.once('open', function () {
 });
 
 const TaskSchema = mongoose.Schema({
-    title: String,
-    desc: String,
-    startTime: Date,
-    endTime: Date,
-    adminId: String,
-    userId: String,
-    note: [{noteId: String, noteDesc: String}],
-    stageId: String
+    name: String,
+    created: Date,
+    admin: String,
+    notes: [{content: String, author: String}],
+    stageId: String,
+    code: Number,
+    owner: String
 
 });
 

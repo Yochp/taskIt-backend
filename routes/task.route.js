@@ -31,7 +31,7 @@ router.route('/tasks')
 router.route('/tasks/:id')
     .get((req, res, next) => {
         const idReq = parseInt(req.params.id);
-        Task.find({_id: idReq}, (err, data) => {
+        Task.find({id: idReq}, (err, data) => {
             if (err) return next(err);
             res.json(data);
         });
