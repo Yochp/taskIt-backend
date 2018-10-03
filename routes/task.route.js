@@ -4,7 +4,17 @@ const Stage = require('../db').Stage;
 
 function createItem(req) {
     return {
-    // TODO create new task
+
+        id: req.body.id,
+        name: req.body.name,
+        owner: req.body.owner,
+        admin: req.body.admin,
+        description: req.body.description,
+        // notes: [{content: req.body.content, author: req.body.author}],
+        stageId: req.body.stageId,
+        modified: req.body.modified,
+        created: req.body.created,
+        code: req.body.code,
     };
 }
 
@@ -27,11 +37,10 @@ router.route('/tasks')
     })
 
 
-
 router.route('/tasks/:id')
     .get((req, res, next) => {
         const idReq = parseInt(req.params.id);
-        Task.find({id: idReq}, (err, data) => {
+        Task.find({id: idReq}, (err, data) => { /** need to change to _id**/
             if (err) return next(err);
             res.json(data);
         });
@@ -41,9 +50,10 @@ router.route('/tasks/:id')
     .put((req, res, next) => {
         const idReq = parseInt(req.params.id);
         if (idReq && !isNaN(idReq)) {
-            Task.findOneAndUpdate({_id: idReq}, req.body)
+            Task.findOneAndUpdate({id: idReq}, req.body) /** need to change to _id**/
                 .then(
-                    () => Task.findOne({_id: idReq}).then((taskUpdate) => {
+                    () => Task.findOne({id: idReq}).then((taskUpdate) => {
+                        /** need to change to _id**/
                         res.json(taskUpdate)
                     })
                 )
@@ -68,9 +78,10 @@ router.route('/tasks/:id')
     .delete((req, res, next) => {
         const idReq = parseInt(req.params.id);
         if (idReq && !isNaN(idReq)) {
-            Task.findOneAndRemove({_id: idReq})
+            Task.findOneAndRemove({id: idReq}) /** need to change to _id**/
                 .then(
-                    () => Task.findOne({_id: idReq}).then((taskDeleted) => {
+                    () => Task.findOne({id: idReq}).then((taskDeleted) => {
+                        /** need to change to _id**/
                         res.send(taskDeleted)
                     })
                 )
